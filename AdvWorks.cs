@@ -41,7 +41,7 @@ namespace AdvWorks
                         new Product() {
                             Id=(int)readerSupply["ProductId"],
                             ProductName=(string)readerSupply["Name"],
-                            Price=(double)readerSupply["ListPrice"]
+                            Price=(decimal)readerSupply["ListPrice"]
                         }
                     );
                 }
