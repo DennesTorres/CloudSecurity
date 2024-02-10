@@ -1,8 +1,8 @@
 {
   "IsEncrypted": false,
   "Values": {
-    "AzureWebJobsStorage": "",
-    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
-    "conString" : "Server=tcp:centraldata.database.windows.net,1433;Initial Catalog=Adventure;Persist Security Info=False;User ID=Dennes;Password=Wmhapx4696;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "conString": "Server=cloudmarathon.database.windows.net,1433;Initial Catalog=advworkslt;Persist Security Info=False;User ID=Dennes;Password=Wmhapx4696;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   }
 }

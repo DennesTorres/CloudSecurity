@@ -1,40 +1,35 @@
 using System.Collections.Generic;
-using System.Net;
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Data.SqlClient;
 using System;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.Http;
+using Microsoft.AspNetCore.Http;
 
 namespace AdvWorks
 {
-    public static class AdvWorks
+    public class AdvWorks
     {
-        [Function("AdvWorks")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req,
-            FunctionContext executionContext)
-        {
-            var logger = executionContext.GetLogger("AdvWorks");
-            logger.LogInformation("C# HTTP trigger function processed a request.");
+        [FunctionName("AdvWorks")]
+        public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req,
+            ILogger log)
+        {            
+            log.LogInformation("C# HTTP trigger function processed a request.");
           
             var sqlConnection = Environment.GetEnvironmentVariable("conString");
                 
             List<Product> productList=new List<Product>();
 
             using (SqlConnection conn = new SqlConnection(sqlConnection))
-            {
-
-                
-
+            {                
                 SqlCommand sqlCmdSupply = new SqlCommand();
                 SqlDataReader readerSupply;
                 sqlCmdSupply.CommandText = "select ProductId,Name,ListPrice from saleslt.Product";
                 sqlCmdSupply.Connection = conn;
                 conn.Open();
-                readerSupply = sqlCmdSupply.ExecuteReader();
+                readerSupply = await sqlCmdSupply.ExecuteReaderAsync();
                 while(readerSupply.Read())
                 {
                     productList.Add(
